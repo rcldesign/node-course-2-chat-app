@@ -21,8 +21,9 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user has joined the chat'));
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('createMessage', (newMessage, callback) => {
         io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
+        callback('This from the server');
 
         socket.on('disconnect', () => {
             console.log('User was disconnected');
